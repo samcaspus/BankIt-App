@@ -1,6 +1,14 @@
 
   {% extends 'base.html' %}
   
+  {% block title %}
+  <title>Homepage</title>
+  {% endblock %}
+
+  {% block style %}
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  {% endblock %}
+
   {% block body %}
   <!-- ======= Hero Section ======= -->
   <section id="hero">

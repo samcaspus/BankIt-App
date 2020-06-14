@@ -71,6 +71,36 @@ def AccountStatus():
     all_account = Customer.query.all()
     return render_template('account-Status.html', rows=all_account)
 
+@app.route('/CustomerSearch', methods=['GET', 'POST'])
+def CustomerSearch():
+    if request.method == 'POST':
+       
+        if 'cid' in request.form:
+            cid = request.form['cid']
+            results = db.session.query(Customer).filter(Customer.id == cid)
+            return render_template('customer-Search.html', result=results)
+        else:
+            ssnid = request.form['ssnid']
+            results = db.session.query(Customer).filter(Customer.ssnid == ssnid)
+            return render_template('customer-Search.html', result=results)
+    else:   
+        return render_template('customer-Search.html')
+
+@app.route('/AccountSearch', methods=['GET', 'POST'])
+def AccountSearch():
+    if request.method == 'POST':
+       
+        if 'accid' in request.form:
+            accid = request.form['accid']
+            results = db.session.query(Customer).filter(Customer.accountId == accid)
+            return render_template('account-Search.html', result=results)
+        else:
+            cid = request.form['cid']
+            results = db.session.query(Customer).filter(Customer.id == cid)
+            return render_template('account-Search.html', result=results)
+    else:   
+        return render_template('account-Search.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

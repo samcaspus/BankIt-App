@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Customer Status</title>
+<script>src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" ></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+{% endblock %}
+
+{% block style %}
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block body %}
+<script>
+
+        // For Refreshing Entire table
+
+        $(document).ready(function () {
+            $("button").click(function () {
+                $("#tableDiv").load(document.URL + ' #table');
+
+            });
+        });
+
+        // For Refreshing Each Row
+
+        function getId(id){
+             $(("#"+id)).load((document.URL +  (" #"+id)), function() {
+             $(this).children(':first').unwrap();
+        });
+        }
+
+
+</script>
+<div class="container">
+    <hr>
+    <h1 class="display-4" style="text-align: center;">Customer Status</h1>
+    <hr>
+    <div>
+        <button type="button" class="btn btn-success btn-md float-right" style="margin-bottom: 20px;"><svg
+                class="bi bi-arrow-counterclockwise" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                <path fill-rule="evenodd"
+                    d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z" />
+                <path fill-rule="evenodd"
+                    d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z" />
+            </svg>Table
+        </button>
+        <div id="tableDiv">
+            <table class="table table-hover" id="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Customer ID</th>
+                        <th scope="col">Customer SSN ID</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Last Updated</th>
+                        <th scope="col">Refresh</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                   
+                    {% if row.status == "Closed" %}
+                    <tr class="table-danger" id="{{ row.id }}">
+                        {% elif row.status == "Active" %}
+                    <tr class="table-success" id="{{ row.id }}">
+                        {% else %}
+                    <tr class="table-warning" id="{{ row.id }}">
+                        {% endif %}
+                        <th scope="row">{{ row.id }}</th>
+                        <td>{{ row.ssnid }}</td>
+                        <td>{{ row.status }}</td>
+                        <td>{{ row.message }}</td>
+                        <td>{{ row.last_updated }}</td>
+                        <td><button type="button" class="btn btn-md" onclick="getId('{{ row.id }}')"><svg
+                            class="bi bi-arrow-counterclockwise" width="1em" height="1em" viewBox="0 0 16 16" fill="green"
+                            xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                            <path fill-rule="evenodd"
+                                d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z" />
+                            <path fill-rule="evenodd"
+                                d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z" />
+                        </svg></button></td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>    
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

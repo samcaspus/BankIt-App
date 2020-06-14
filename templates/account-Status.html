@@ -15,6 +15,8 @@
 {% block body %}
 <script>
 
+        $('.dropdown-toggle').dropdown()
+
         // For Refreshing Entire table
 
         $(document).ready(function () {
@@ -59,6 +61,7 @@
                         <th scope="col">Message</th>
                         <th scope="col">Last Updated</th>
                         <th scope="col">Refresh</th>
+                        <th scope="col">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,6 +92,28 @@
                             <path fill-rule="evenodd"
                                 d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z" />
                         </svg></button></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Operations</button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <form action="/Deposit" method="post" class="formInsideTable">
+                                        <input type="hidden" name="accid" value="{{ row.accountId }}">
+                                        <input class="btn btn-link btn-sm" type="submit" value="Deposit" />
+                                    </form>
+                                    <div class="dropdown-divider"></div>
+                                    <form action="/Withdraw" method="post" class="formInsideTable">
+                                        <input type="hidden" name="accid" value="{{ row.accountId }}">
+                                        <input class="btn btn-link btn-sm" type="submit" value="Withdraw" />
+                                    </form>
+                                    <div class="dropdown-divider"></div>
+                                    <form action="/Transfer" method="post" class="formInsideTable">
+                                        <input type="hidden" name="accid" value="{{ row.accountId }}">
+                                        <input class="btn btn-link btn-sm" type="submit" value="Transfer" />
+                                    </form>
+                                </div>
+                              </div>  
+                    </td>
                     </tr>
                     
                     {% endfor %}

@@ -23,6 +23,7 @@ class Customer(db.Model):
     last_updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     message = db.Column(db.Text, nullable=False)
 
+
     def __init__(self, ssnid, accountId, accountBalance, account_type, status, message):
         self.ssnid = ssnid
         self.accountId = accountId

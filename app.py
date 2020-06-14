@@ -7,7 +7,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
 
-class Customer:
+class Customer(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     ssnid = db.Column(db.Integer(), unique=True, nullable=False)
     accountId = db.Column(db.Integer(), nullable=False)
@@ -17,7 +17,7 @@ class Customer:
     last_updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     message = db.Column(db.Text, nullable=False)
 
-    def __init__(self, ssnid, accountId, account_type, status, last_updated, message):
+    def __init__(self, ssnid, accountId, account_type, accountBalance,status, last_updated, message):
         self.ssnid = ssnid
         self.accountId = accountId
         self.accountBalance = accountBalance

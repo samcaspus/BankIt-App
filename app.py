@@ -35,8 +35,6 @@ class Customer(db.Model):
     def __repr__(self):
         return "Customer id: "+str(self.id)
 
-
-
 # ###########################
 # Initializing Dummy Data (Run in Python Terminal)
 # ###########################
@@ -66,6 +64,11 @@ def home():
 def CustomerStatus():
     all_customer = Customer.query.all()
     return render_template('customer-Status.html', rows=all_customer)
+
+@app.route('/AccountStatus')
+def AccountStatus():
+    all_account = Customer.query.all()
+    return render_template('account-Status.html', rows=all_account)
 
 
 if __name__ == '__main__':

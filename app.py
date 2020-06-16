@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import json
+from sqlalchemy import and_
+
 
 # ###########################
 # Database Configuration
@@ -103,6 +106,109 @@ def AccountSearch():
     else:   
         return render_template('account-Search.html')
 
+@app.route('/Deposit', methods=['GET', 'POST'])
+def deposit():
+    if request.method == 'POST':
+        accid = request.form['accid']
+        results = db.session.query(Customer).filter(Customer.accountId == accid)
+        return render_template('Deposit.html',result=results)
+
+@app.route("/update", methods=["POST",'GET'])
+def update():
+    if request.method == 'POST':
+        newb = request.form["dep"]
+        oldb = request.form["oldbalance"]
+        accid=request.form["accid"]
+        cust = Customer.query.filter_by(accountId=accid).first()
+        cust.accountBalance = (int)(oldb)+(int)(newb)
+        cust.message="Deposit success"
+        db.session.commit()
+        return redirect("/AccountStatus")
+
+@app.route("/withdrawupdate", methods=["POST",'GET'])
+def withdrawupdate():
+    if request.method == 'POST':
+        newb = request.form["dep"]
+        oldb = request.form["oldbalance"]
+        accid=request.form["accid"]
+        cust = Customer.query.filter_by(accountId=accid).first()
+        if((int)(oldb)-(int)(newb) < 0):
+            cust.message="Withdraw failed"
+        else:
+            cust.accountBalance = (int)(oldb)-(int)(newb)
+            cust.message="Withdraw success"
+        db.session.commit()
+        return redirect("/AccountStatus")
+
+
+
+
+@app.route('/Withdraw',methods=["POST",'GET'])
+def withdraw():
+    if request.method == 'POST':
+        accid = request.form['accid']
+        results = db.session.query(Customer).filter(Customer.accountId == accid)
+        return render_template('withdraw.html',result=results)
+
+
+@app.route('/Transfer',methods=["POST",'GET'])
+def transfer():
+    if request.method == 'POST':
+        accid = request.form['accid']
+        results = db.session.query(Customer).filter(Customer.accountId == accid)
+        return render_template('transfer.html',result=results)
+
+@app.route("/transferupdate", methods=["POST",'GET'])
+def transferupdate():
+    if request.method == 'POST':
+        tran = request.form["dep"]
+        stype = request.form["stype"]
+        ttype=request.form["ttype"]
+        accid=request.form["accid"]
+        scust = db.session.query(Customer).filter(and_(Customer.cid == accid,Customer.account_type==stype[0])).first()
+        tcust = db.session.query(Customer).filter(and_(Customer.cid==accid,Customer.account_type==ttype[0])).first()
+        
+        if(stype==ttype):
+
+            scust.message="Transfer failed"
+
+        elif(int(scust.accountBalance)-int(tran) < 0 ):
+            
+            scust.message="Insufficient balance for transfer"
+        else:
+            scust.accountBalance = int(scust.accountBalance)-int(tran)
+            tcust.accountBalance = int(tcust.accountBalance)+int(tran)
+            scust.message="Transfer success"
+            tcust.message="Money Recieved"
+            
+        db.session.commit()
+        return redirect("/AccountStatus")
+
+@app.route("/transferupdates", methods=["POST",'GET'])
+def transferupdates():
+    if request.method == 'POST':
+        tran = request.form["tran"]
+        tacc=request.form["tacc"]
+        accid=request.form["accid"]
+        scust = db.session.query(Customer).filter(Customer.accountId == accid).first()
+        tcust = db.session.query(Customer).filter(Customer.accountId == tacc).first()
+        
+        if(accid == tacc):
+
+            scust.message="Transfer failed because source and target accounts are same."
+        if(scust is None or tcust is None):
+            scust.message="Transfer failed.Check Account IDs"
+        elif(int(scust.accountBalance)-int(tran) < 0 ):
+            
+            scust.message="Insufficient balance for transfer"
+        else:
+            scust.accountBalance = int(scust.accountBalance)-int(tran)
+            tcust.accountBalance = int(tcust.accountBalance)+int(tran)
+            scust.message="Transfer success"
+            tcust.message="Money Recieved"
+            
+        db.session.commit()
+        return redirect("/AccountStatus")
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -39,39 +39,38 @@
     <div class="container d-flex align-items-center">
 
         <div class="logo mr-auto">
-          <h1 class="text-light"><a href="/"><span>Bank<span style="color: yellow;">i</span>t</a></h1>
+          <h1 class="text-light"><a href="index.html"><span>Bank</span></a></h1>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
   
         <nav class="nav-menu d-none d-lg-block">
           <ul>
-            <li ><a href="/">Home</a></li>
-            <li class="drop-down"><a href="">Customer Management</a>
+            <li class="active"><a href="#header">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li class="drop-down"><a href="">Drop Down</a>
               <ul>
-                <li><a href="#">Create Customer Account</a></li>
-                <li><a href="#">Update Customer Account</a></li>
-                <li><a href="#">Delete Customer Account</a></li>
+                <li><a href="#">Drop Down 1</a></li>
+                <li class="drop-down"><a href="#">Drop Down 2</a>
+                  <ul>
+                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="#">Deep Drop Down 2</a></li>
+                    <li><a href="#">Deep Drop Down 3</a></li>
+                    <li><a href="#">Deep Drop Down 4</a></li>
+                    <li><a href="#">Deep Drop Down 5</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Drop Down 3</a></li>
+                <li><a href="#">Drop Down 4</a></li>
+                <li><a href="#">Drop Down 5</a></li>
               </ul>
             </li>
-            <li class="drop-down"><a href="">Account Management</a>
-              <ul>
-                <li><a href="/AccountSearch">Account Search</a></li>
-                <li><a href="/CustomerSearch">Customer Search</a></li>
-              </ul>
-            </li>
-            <li class="drop-down"><a href="">Status Details</a>
-              <ul>
-                <li><a href="/AccountStatus">Account Status</a></li>
-                <li><a href="/CustomerStatus">Customer Status</a></li>
-              </ul>
-            </li>
-            <li class="drop-down"><a href="">Account Operations</a>
-              <ul>
-                <li><a href="/AccountStatus">Deposit and Withdraw</a></li>
-                <li><a href="#">Transfer Money</a></li>
-              </ul>
-            </li>  
+            <li><a href="#contact">Contact</a></li>
+  
           </ul>
         </nav><!-- .nav-menu -->
   
@@ -81,7 +80,6 @@
     {% block body %} {% endblock %}
 
     
-
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="footer-top">
@@ -90,13 +88,13 @@
 
           <div class="col-lg-4 col-md-6">
             <div class="footer-info">
-              <h3>BankIt</h3>
-              <p class="pb-3"><em>Convenient, feature-rich, checking accounts, simplify your money management.</em></p>
+              <h3>Bootslander</h3>
+              <p class="pb-3"><em>Qui repudiandae et eum dolores alias sed ea. Qui suscipit veniam excepturi quod.</em></p>
               <p>
-               xyz Branch <br>
-                Banglore,India<br><br>
-                <strong>Phone:</strong> +1 1234 12345 123<br>
-                <strong>Email:</strong> www.Bankit.com<br>
+                A108 Adam Street <br>
+                NY 535022, USA<br><br>
+                <strong>Phone:</strong> +1 5589 55488 55<br>
+                <strong>Email:</strong> info@example.com<br>
               </p>
               <div class="social-links mt-3">
                 <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
@@ -112,13 +110,14 @@
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#features">Features</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
             </ul>
           </div>
 
-         <!-- <div class="col-lg-2 col-md-6 footer-links">
+          <div class="col-lg-2 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
@@ -128,23 +127,21 @@
               <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
             </ul>
           </div>
-        -->
-          <div class="col-lg-4 col-md-6 footer-links">
-            <h4>Your security is our top priority</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Join Us</a></li>
-            </ul>
-           <!-- <form action="" method="post">
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
               <input type="email" name="email"><input type="submit" value="Subscribe">
             </form>
-            -->
+
           </div>
 
         </div>
       </div>
     </div>
 
-   <!-- <div class="container">
+    <div class="container">
       <div class="copyright">
         &copy; Copyright <strong><span>Bootslander</span></strong>. All Rights Reserved
       </div>

@@ -1,71 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  {% extends 'base.html' %}
+  
+  {% block title %}
   <title>Homepage</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+  {% endblock %}
 
-  <!-- Favicons -->
-  <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
-  <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="{{ url_for('static' , filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static' , filename='vendor/icofont/icofont.min.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static' , filename='vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static' , filename='vendor/venobox/venobox.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static' , filename='vendor/remixicon/remixicon.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static' , filename='vendor/owl.carousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static' , filename='vendor/aos/aos.css') }}" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
+  {% block style %}
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-</head>
+  {% endblock %}
 
-<body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center">
-    
-    <div class="container d-flex align-items-center">
-
-        <div class="logo mr-auto">
-          <h1 class="text-light"><a href="/"><span>Bank<span style="color: yellow;">i</span>t</a></h1>
-          <!-- Uncomment below if you prefer to use an image logo -->
-        </div>
-  
-        <nav class="nav-menu d-none d-lg-block">
-          <ul>
-            <li class="active"><a href="#header">Home</a></li>
-            
-            <li><a href="#features">Features</a></li>
-           <!-- <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#team">Team</a></li>
-            --><li class="drop-down"><a href="">Help</a>
-              <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#faq">Frequently Asked Questions</a></li>
-              </ul>
-            </li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="drop-down"><a href="#">Login</a>
-               <ul>
-                    <li><a href="#">Customer Login</a></li>
-                    <li><a href="#">Employee Login</a></li>
-               </ul>
-            </li>
-  
-          </ul>
-        </nav><!-- .nav-menu -->
-  
-      </div>
-    </header><!-- End Header -->
+  {% block body %}
   <!-- ======= Hero Section ======= -->
   <section id="hero">
 
@@ -73,10 +17,10 @@
       <div class="row">
         <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
           <div data-aos="zoom-out">
-            <h1><span> <span>Bank<span style="color: yellow;">i</span>t </span></h1>
-            <h2>Convenient, Simplied management.</h2>
+            <h1>Build Your Landing Page With <span>Bootstlander</span></h1>
+            <h2>We are team of talanted designers making websites with Bootstrap</h2>
             <div class="text-center text-lg-left">
-              <a href="#about" class="btn-get-started scrollto">Know more</a>
+              <a href="#about" class="btn-get-started scrollto">Get Started</a>
             </div>
           </div>
         </div>
@@ -107,41 +51,38 @@
 
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
-        <div class="col-12 col-md-5 col-lg-6 order-md-2">
-            </div>
+      <div class="container-fluid">
 
-        <div class="container-fluid">
-            
         <div class="row">
-        
+          <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch" data-aos="fade-right">
+            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+          </div>
 
           <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" data-aos="fade-left">
-            <h3>Welcomes you to explore the world of premier bank in India.</h3>
-            
+            <h3>Enim quis est voluptatibus aliquid consequatur fugiat</h3>
+            <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam sint et id nulla tenetur. Suscipit aut voluptate.</p>
 
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
               <div class="icon"><i class="bx bx-fingerprint"></i></div>
-              <h4 class="title"><a href="">Data privacy in financial services</a></h4>
-              <p class="description">Our law is to protect customer information which gains a significant attention.We do that with the increased intervention of technology in the banking sector globally. </p>
+              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
             </div>
 
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
               <div class="icon"><i class="bx bx-gift"></i></div>
-              <h4 class="title"><a href="">Benefits</a></h4>
-              <p class="description">Benefits and perks, including insurance benefits, retirement benefits, and vacation policy. </p>
+              <h4 class="title"><a href="">Nemo Enim</a></h4>
+              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
             </div>
 
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
               <div class="icon"><i class="bx bx-atom"></i></div>
-              <h4 class="title"><a href="">Global reputation</a></h4>
-              <p class="description">BankIt is ranked as 26th in the Fortune Global 500 list of the world's biggest corporations of 2019.</p>
+              <h4 class="title"><a href="">Dine Pad</a></h4>
+              <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
             </div>
 
           </div>
-          <br>
-          <br>
-          
         </div>
+
       </div>
     </section><!-- End About Section -->
 
@@ -155,77 +96,76 @@
         </div>
 
         <div class="row" data-aos="fade-left">
-        
+          <div class="col-lg-3 col-md-4">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
+              <i class="ri-store-line" style="color: #ffbb2c;"></i>
+              <h3><a href="">Lorem Ipsum</a></h3>
+            </div>
+          </div>
           <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
               <i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
-              <h3>Export Finance</h3>
+              <h3><a href="">Dolor Sitema</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="150">
-              <i class="ri-currency-fill" style="color: #e80368;"></i>
-              <h3>Cash withdrawal facility</h3>
-            </div>
-          </div>
-            <div class="col-lg-3 col-md-4">
-            <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
-              <i class="ri-emphasis" style="color: #ffbb2c;"></i>
-              <h3>EMI option</h3>
+              <i class="ri-calendar-todo-line" style="color: #e80368;"></i>
+              <h3><a href="">Sed perspiciatis</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
-              <i class="ri-secure-payment-line" style="color: #e361ff;"></i>
-              <h3>Revolving Credit</h3>
+              <i class="ri-paint-brush-line" style="color: #e361ff;"></i>
+              <h3><a href="">Magni Dolores</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="250">
-              <i class="ri-hand-coin-fill" style="color: #47aeff;"></i>
-              <h3>Insurance Premium Discounts</h3>
+              <i class="ri-database-2-line" style="color: #47aeff;"></i>
+              <h3><a href="">Nemo Enim</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
-              <i class="ri-bill-line" style="color: #ffa76e;"></i>
-              <h3>Bill Finance</h3>
+              <i class="ri-gradienter-line" style="color: #ffa76e;"></i>
+              <h3><a href="">Eiusmod Tempor</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="350">
-              <i class="ri-emotion-happy-line" style="color: #11dbcf;"></i>
-              <h3>Attractive Interest Rates</h3>
+              <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+              <h3><a href="">Midela Teren</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="400">
-              <i class="ri-funds-fill" style="color: #4233ff;"></i>
-              <h3>Traders</h3>
+              <i class="ri-price-tag-2-line" style="color: #4233ff;"></i>
+              <h3><a href="">Pira Neve</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="450">
               <i class="ri-anchor-line" style="color: #b2904f;"></i>
-              <h3>Exports Gold Card</h3>
+              <h3><a href="">Dirada Pack</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="500">
-              <i class="ri-shuffle-line style="color: #b20969;"></i>
-              <h3>Flexible Credit Limit</h3>
+              <i class="ri-disc-line" style="color: #b20969;"></i>
+              <h3><a href="">Moton Ideal</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="550">
-              <i class="ri-gift-fill" style="color: #ff5828;"></i>
-              <h3>Reward Programme</h3>
+              <i class="ri-base-station-line" style="color: #ff5828;"></i>
+              <h3><a href="">Verdo Park</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="600">
-              <i class="ri-ie-fill" style="color: #29cc61;"></i>
-              <h3>Interest Free Credit Period</h3>
+              <i class="ri-fingerprint-line" style="color: #29cc61;"></i>
+              <h3><a href="">Flavor Nivelanda</a></h3>
             </div>
           </div>
         </div>
@@ -242,8 +182,8 @@
           <div class="col-lg-3 col-md-6">
             <div class="count-box">
               <i class="icofont-simple-smile"></i>
-              <span data-toggle="counter-up">10,943</span>
-              <p>10k+ Happy Clients</p>
+              <span data-toggle="counter-up">232</span>
+              <p>Happy Clients</p>
             </div>
           </div>
 
@@ -258,16 +198,16 @@
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
               <i class="icofont-live-support"></i>
-              <span data-toggle="counter-up">365</span>
-              <p>Days of Customer support</p>
+              <span data-toggle="counter-up">1,463</span>
+              <p>Hours Of Support</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
               <i class="icofont-users-alt-5"></i>
-              <span data-toggle="counter-up">1592</span>
-              <p>Employees</p>
+              <span data-toggle="counter-up">15</span>
+              <p>Hard Workers</p>
             </div>
           </div>
 
@@ -277,7 +217,7 @@
     </section><!-- End Counts Section -->
 
     <!-- ======= Details Section ======= -->
-   <!-- <section id="details" class="details">
+    <section id="details" class="details">
       <div class="container">
 
         <div class="row content">
@@ -369,7 +309,30 @@
 
       </div>
     </section><!-- End Details Section -->
-   
+
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Gallery</h2>
+          <p>Check our Gallery</p>
+        </div>
+
+        <div class="row no-gutters" data-aos="fade-left">
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
+              <a href="{{ url_for('static', filename='img/gallery/gallery-1.jpg') }}" class="venobox" data-gall="gallery-item">
+                <img src="{{ url_for('static', filename='img/gallery/gallery-1.jpg') }}" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Gallery Section -->
+
     <!-- ======= Testimonials Section ======= -->
     <section id="testimonials" class="testimonials">
       <div class="container">
@@ -377,13 +340,12 @@
         <div class="owl-carousel testimonials-carousel" data-aos="zoom-in">
 
           <div class="testimonial-item">
-            <!--<img src="{{ url_for('static', filename='img/gg.png') }}" class="testimonial-img" alt="">
+            <img src="{{ url_for('static', filename='img/testimonials/testimonials-1.jpg') }}" class="testimonial-img" alt="">
             <h3>Saul Goodman</h3>
-            <h4>Ceo &amp; Founder</h4>-->
+            <h4>Ceo &amp; Founder</h4>
             <p>
               <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-              In the subscription economy, the connection between customer’s success and our success is much more direct.
-              So that is why we think about what a customer expects to accomplish during implementation.
+              Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
               <i class="bx bxs-quote-alt-right quote-icon-right"></i>
             </p>
           </div>
@@ -391,7 +353,121 @@
       </div>
     </section><!-- End Testimonials Section -->
 
-    
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="team">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Team</h2>
+          <p>Our Great Team</p>
+        </div>
+
+        <div class="row" data-aos="fade-left">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="member" data-aos="zoom-in" data-aos-delay="100">
+              <div class="pic"><img src="{{ url_for('static', filename='img/team/team-1.jpg') }}" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Walter White</h4>
+                <span>Chief Executive Officer</span>
+                <div class="social">
+                  <a href=""><i class="icofont-twitter"></i></a>
+                  <a href=""><i class="icofont-facebook"></i></a>
+                  <a href=""><i class="icofont-instagram"></i></a>
+                  <a href=""><i class="icofont-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Team Section -->
+
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Pricing</h2>
+          <p>Check our Pricing</p>
+        </div>
+
+        <div class="row" data-aos="fade-left">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="box" data-aos="zoom-in" data-aos-delay="100">
+              <h3>Free</h3>
+              <h4><sup>$</sup>0<span> / month</span></h4>
+              <ul>
+                <li>Aida dere</li>
+                <li>Nec feugiat nisl</li>
+                <li>Nulla at volutpat dola</li>
+                <li class="na">Pharetra massa</li>
+                <li class="na">Massa ultricies mi</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
+            <div class="box featured" data-aos="zoom-in" data-aos-delay="200">
+              <h3>Business</h3>
+              <h4><sup>$</sup>19<span> / month</span></h4>
+              <ul>
+                <li>Aida dere</li>
+                <li>Nec feugiat nisl</li>
+                <li>Nulla at volutpat dola</li>
+                <li>Pharetra massa</li>
+                <li class="na">Massa ultricies mi</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+            <div class="box" data-aos="zoom-in" data-aos-delay="300">
+              <h3>Developer</h3>
+              <h4><sup>$</sup>29<span> / month</span></h4>
+              <ul>
+                <li>Aida dere</li>
+                <li>Nec feugiat nisl</li>
+                <li>Nulla at volutpat dola</li>
+                <li>Pharetra massa</li>
+                <li>Massa ultricies mi</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+            <div class="box" data-aos="zoom-in" data-aos-delay="400">
+              <span class="advanced">Advanced</span>
+              <h3>Ultimate</h3>
+              <h4><sup>$</sup>49<span> / month</span></h4>
+              <ul>
+                <li>Aida dere</li>
+                <li>Nec feugiat nisl</li>
+                <li>Nulla at volutpat dola</li>
+                <li>Pharetra massa</li>
+                <li>Massa ultricies mi</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Pricing Section -->
+
     <!-- ======= F.A.Q Section ======= -->
     <section id="faq" class="faq section-bg">
       <div class="container">
@@ -404,61 +480,46 @@
         <div class="faq-list">
           <ul>
             <li data-aos="fade-up">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" class="collapse" href="#faq-list-1">Can I pay my BankIt Credit Card bills using any debit card? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" class="collapse" href="#faq-list-1">Non consectetur a erat nam at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
               <div id="faq-list-1" class="collapse show" data-parent=".faq-list">
                 <p>
-                 You can use debit cards of the following 3 banks to pay your BankIt Card bills online.
-                 <br>
-                    1. Bank of MNM Debit Card
-                 <br>   
-                   2. TRDF bank Debit card
-                    <br>
-                    3. Bank ATM-cum-Debit Card
+                  Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
                 </p>
               </div>
             </li>
 
             <li data-aos="fade-up" data-aos-delay="100">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-2" class="collapsed">What is the process of applying for an BankIt Card? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-2" class="collapsed">Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
               <div id="faq-list-2" class="collapse" data-parent=".faq-list">
                 <p>
-                  The fastest way to apply for an BankIt Card is through our website.You can also apply for an BankIt Card though our Chatbot ELA Alternatively, you can also call our helpline at 12 33 33 33 44
+                  Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
                 </p>
               </div>
             </li>
 
             <li data-aos="fade-up" data-aos-delay="200">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-3" class="collapsed">What is the minimum and maximum age at which one can enter and buy the insurence policy? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-3" class="collapsed">Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
               <div id="faq-list-3" class="collapse" data-parent=".faq-list">
                 <p>
-                  The minimum age of entry for General’s Health Insurance Policy - Retail is 18 years However, children from the age of 3 months can be covered subject to both parents concurrently covered with General’s Health Insurance Policy - Retail. The Maximum age of entry for the policy is 65 years
+                  Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
                 </p>
               </div>
             </li>
 
             <li data-aos="fade-up" data-aos-delay="300">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-4" class="collapsed">How can I update my current residence address in the Credit Card Account? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-4" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
               <div id="faq-list-4" class="collapse" data-parent=".faq-list">
                 <p>
-                  You may update your current residence address using any of the below options:-
-                  <br>
-                  1.Email
-                  <br>
-                  2.call customer care (888 666 777)
-                  <br>
+                  Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.
                 </p>
               </div>
             </li>
 
             <li data-aos="fade-up" data-aos-delay="400">
-              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-5" class="collapsed">How long will it take for the payment to reflect in my account? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-5" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
               <div id="faq-list-5" class="collapse" data-parent=".faq-list">
                 <p>
-                  Depends on mode of the payment 
-                  <br>
-                  Bestcase: It takes 1 hour.
-                  <br>
-                  Worstcase: It takes 3-4 working days atmost.
+                  Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
                 </p>
               </div>
             </li>
@@ -485,19 +546,19 @@
               <div class="address">
                 <i class="icofont-google-map"></i>
                 <h4>Location:</h4>
-                <p>xyz Branch ,Banglore</p>
+                <p>A108 Adam Street, New York, NY 535022</p>
               </div>
 
               <div class="email">
                 <i class="icofont-envelope"></i>
                 <h4>Email:</h4>
-                <p>www.Bankit.com</p>
+                <p>info@example.com</p>
               </div>
 
               <div class="phone">
                 <i class="icofont-phone"></i>
                 <h4>Call:</h4>
-                <p>+1 1234 12345 123</p>
+                <p>+1 5589 55488 55s</p>
               </div>
 
             </div>
@@ -541,95 +602,4 @@
     </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6">
-            <div class="footer-info">
-              <h3>BankIt</h3>
-              <p class="pb-3"><em>Convenient, feature-rich, checking accounts, simplify your money management.</em></p>
-              <p>
-               xyz Branch <br>
-                Banglore,India<br><br>
-                <strong>Phone:</strong> +1 1234 12345 123<br>
-                <strong>Email:</strong> www.Bankit.com<br>
-              </p>
-              <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#features">Features</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-            </ul>
-          </div>
-
-         <!-- <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-        -->
-          <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Your security is our top priority</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Join Us</a></li>
-            </ul>
-           <!-- <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-            -->
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-   <!-- <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Bootslander</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-       Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/jquery.easing/jquery.easing.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/php-email-form/validate.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/venobox/venobox.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/waypoints/jquery.waypoints.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/counterup/counterup.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/owl.carousel/owl.carousel.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/aos/aos.js') }}"></script>
-
-  <!-- Template Main JS File -->
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
-</body>
-
-</html>
+  {% endblock %}

@@ -57,6 +57,7 @@
                         <th scope="col">Customer ID</th>
                         <th scope="col">Account ID</th>
                         <th scope="col">Account Type</th>
+                        <th scope="col">Balance</th>
                         <th scope="col">Account Status</th>
                         <th scope="col">Message</th>
                         <th scope="col">Last Updated</th>
@@ -74,13 +75,14 @@
                         {% else %}
                     <tr class="table-warning" id="{{ row.id }}">
                         {% endif %}
-                        <th scope="row">{{ row.id }}</th>
+                        <th scope="row">{{ row.cid }}</th>
                         <td>{{ row.accountId }}</td>
                         {% if row.account_type == 'S' %}
                             <td>Savings</td>
                         {% else %}
                         <td>Current</td>
                         {% endif %}
+                        <td>{{ row.accountBalance }}</td>
                         <td>{{ row.status }}</td>
                         <td>{{ row.message }}</td>
                         <td>{{ row.last_updated }}</td>

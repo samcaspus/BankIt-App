@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title>Delete Customer</title>
+{% endblock %}
+
+{% block style %}
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+{% endblock %}
+   
+
+{% block body %}
+<div class="container">
+    <section id="content">
+        <form method="POST" action=/deletecustomer>
+            <h1>Customer Deletion</h1>     
+            <p>Caution!Deletion cannot be rolled back!</p>
+            <div>
+                <input type="text" placeholder="CID" required="" id="cid" name="cid" />
+            </div> 
+            
+            <div>   
+                <input type="submit" value="Delete Customer"/>
+            </div>
+            
+        </form><!-- form -->
+        
+    </section><!-- content -->
+  </div><!-- container -->
+  
+  
+  
+
+{% endblock %}

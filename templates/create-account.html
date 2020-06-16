@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title>Add account</title>
+{% endblock %}
+
+{% block style %}
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+{% endblock %}
+   
+
+{% block body %}
+<div class="container">
+    <section id="content">
+        <form method="POST" action=/addaccount>
+            <h1>Account Creation</h1>     
+            <div>
+                <input type="text" placeholder="Customer ID" required="" id="cid" name="cid" />
+            </div>   
+            <br>
+            <div>    
+            <label for="atype">Choose a account type:</label>
+            <select name="account_type" id="atype">
+                <option value="C">Current Account</option>
+                <option value="S">Savings Account</option>
+              </select>
+            </div>   
+            <br> 
+            <div>
+                <input type="text" placeholder="Deposit Amount" required="" id="amount" name="accountBalance"/>
+            </div>  
+            
+            <div>   
+                <input type="submit" value="Create Account"/>
+            </div>
+        </form><!-- form -->
+        
+    </section><!-- content -->
+  </div><!-- container -->
+  
+  
+  
+
+{% endblock %}

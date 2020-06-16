@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title>Create Customer</title>
+{% endblock %}
+
+{% block style %}
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+{% endblock %}
+   
+
+{% block body %}
+<div class="container">
+    <section id="content">
+        <form method="POST" action=/createcustomer>
+            <h1>Customer Creation Form</h1>
+            <!-- {% if cid %}
+            <div>
+                <input type="text" placeholder="{{ cid }}" required="" id="name" name="customer_name" disabled=true readonly/>
+            </div> 
+            {% endif %} -->
+            <div>
+                <input type="text" placeholder="Customer Name" required="" id="name" name="customer_name"/>
+            </div>       
+            <div>
+                <input type="text" placeholder="Age" required="" id="Age" name="age" />
+            </div>  
+            <div>
+                <input type="text" placeholder="Address" required="" id="add" name="address" />
+            </div> 
+            <div>
+                <input type="text" placeholder="State" required="" id="state" name="state" />
+            </div> 
+            <div>
+                <input type="text" placeholder="City" required="" id="city" name="city" />
+            </div> 
+  
+            <div>
+                <input type="text" placeholder="SSID" required="" id="ssid" name="ssnid" />
+            </div>
+            <div>   
+                <input type="submit" value="Create Customer"/>
+            </div>
+        </form><!-- form -->
+        
+    </section><!-- content -->
+  </div><!-- container -->
+  
+  
+  
+
+{% endblock %}

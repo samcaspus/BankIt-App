@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title>BankIt | Trransfer</title>
+{% endblock %}
+
+{% block style %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block body %}
+  <!-- ======= Hero Section ======= -->
+
+    <!-- ======= Contact Section ======= -->
+    
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          
+          <p>Manage Money in Your Accounts</p>
+        </div>
+
+        <div class="row">
+          {% if result %}
+                {% if result[0] == null %}
+                <p style="text-align: center; font-family: 'Poppins', sans-serif;">Sorry, No account was found</p>
+                {% else %}
+          
+
+          <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="200">
+
+            <form action="/transferupdate" method="post" class="php-email-form">
+              <table class="table">
+                {% for row in result %}
+          	<tr>
+          		<td><div class="form-group"><div><h4>Customer ID</h4></div></div></td>
+          		<td><div class="form-group">
+                <p type="text" class="form-control" name="cid" id="cid" placeholder="Customer ID">{{row.cid}} </p>
+                
+              <input type="hidden" value="{{row.cid}}" name="accid" id="ai">
+
+              </div>
+          </td>
+          	</tr>
+
+
+            <tr>
+              <td><div class="form-group"><div><h4>Source Account Type</h4></div></div></td>
+              <td><div class="form-group">
+                <select class="form-control" name="stype" id="stype">
+                  <option value="ssave">Savings</option>
+                  <option value="scurr">Current</option>
+                </select>
+              </div>
+          </td>
+            </tr>
+            <tr>
+              <td><div class="form-group"><div><h4>Target Account Type</h4></div></div></td>
+              <td><div class="form-group">
+                <select class="form-control" name="ttype" id="ttype">
+                  <option value="ssave">Savings</option>
+                  <option value="scurr">Current</option>
+                </select>
+              </div>
+          </td>
+            </tr>
+          	
+          	
+          	<tr>
+          		<td><div class="form-group"><div><h4>Transfer Amount</h4></div></div></td>
+          		<td><div class="form-group">
+                <input type="text" class="form-control" name="dep" id="dep" placeholder="Transfer Amount" />
+              </div>
+          </td>
+          	</tr>
+              {% endfor %}
+          </table>
+              
+              <div class="text-center"><button type="submit" id="submit">Submit</button></div>
+            </form>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+
+
+
+
+
+
+
+<!--Transfer Money Form -->
+
+
+
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          
+          <p>Transfer Money</p>
+        </div>
+
+        <div class="row">
+          {% if result %}
+                {% if result[0] == null %}
+                <p style="text-align: center; font-family: 'Poppins', sans-serif;">Sorry, No account was found</p>
+                {% else %}
+          
+
+          <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="200">
+
+            <form action="/transferupdates" method="post" class="php-email-form">
+              <table class="table">
+                {% for row in result %}
+            <tr>
+              <td><div class="form-group"><div><h4>Customer ID</h4></div></div></td>
+              <td><div class="form-group">
+                <p type="text" class="form-control" name="cid" id="cid" placeholder="Customer ID">{{row.cid}} </p>
+                
+              <input type="hidden" value="{{row.accountId}}" name="accid" id="aid">
+              
+              </div>
+          </td>
+            </tr>
+
+
+            <tr>
+              <td><div class="form-group"><div><h4>Source Account ID</h4></div></div></td>
+              <td><div class="form-group">
+                <p class="form-control" name="sacc" id="sacc" placeholder="Source Account ID">{{row.accountId}}</p>
+              </div>
+          </td>
+            </tr>
+            <tr>
+              <td><div class="form-group"><div><h4>Target Account ID</h4></div></div></td>
+              <td><div class="form-group">
+                <input class="form-control" name="tacc" id="tacc" placeholder="Target Account ID"></input>
+
+              </div>
+          </td>
+            </tr>
+            
+            
+            <tr>
+              <td><div class="form-group"><div><h4>Transfer Amount</h4></div></div></td>
+              <td><div class="form-group">
+                <input type="text" class="form-control" name="tran" id="tran" placeholder="Transfer Amount" />
+              </div>
+          </td>
+            </tr>
+              {% endfor %}
+          </table>
+              
+              <div class="text-center"><button type="submit" id="submitt">Submit</button></div>
+            </form>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+<script type="text/javascript">
+  $('#submit').on('click',(e)=>{e.preventDefault()
+    let postData={
+      'stype' : $('#stype').find(":selected").text(),
+      'ttype' :$('#ttype').find(":selected").text(),
+      'accid' :$("input[id=ai]").val(),
+      'dep' :$("input[id=dep]").val()
+
+    }
+    console.log(postData);
+   $.ajax({
+            url: '/transferupdate',
+            type: 'POST',
+            dataType: 'json',
+            data: postData,
+            success: function(data) {
+              console.log('Data has been posted');
+              console.log(data);
+            },
+            error: function(err) {
+              console.log("Error is: " + err.statusText);
+            }
+          });
+   if($('#stype').find(":selected").text()  === $('#ttype').find(":selected").text())
+   {
+    alert("Source and Target type cannot be same.")
+   }
+   
+   window.location.replace("/AccountStatus")
+           })
+ 
+
+
+
+$('#submitt').on('click',(e)=>{e.preventDefault()
+    let postData={
+      'tacc' :$("input[id=tacc]").val() ,
+      'accid' :$("input[id=aid]").val(),
+      'tran' :$("input[id=tran]").val()
+
+    }
+    console.log(postData);
+   $.ajax({
+            url: '/transferupdates',
+            type: 'POST',
+            dataType: 'json',
+            data: postData,
+            success: function(data) {
+              console.log('Data has been posted');
+              console.log(data);
+            },
+            error: function(err) {
+              console.log("Error is: " + err.statusText);
+            }
+          });
+   alert("Check Message in Account Status for Status of Transfer")
+   window.location.replace("/AccountStatus")
+           })
+ 
+</script>
+  </main><!-- End #main -->
+  
+  {% endblock %}

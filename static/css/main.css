@@ -109,7 +109,7 @@ body {
   # Header
   --------------------------------------------------------------*/
   #header {
-    background: rgba(1, 4, 136, 0.9);
+    background: linear-gradient(45deg, rgba(86, 58, 250, 0.9) 0%, rgba(116, 15, 214, 0.9) 100%);
     height: 60px;
     transition: all 0.5s;
     z-index: 997;
@@ -164,7 +164,7 @@ body {
   .nav-menu a {
     display: block;
     position: relative;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.918);
     padding: 10px 0 10px 25px;
     transition: 0.3s;
     font-size: 15px;
@@ -392,7 +392,7 @@ body {
   
   #hero:before {
     content: "";
-    background: rgba(2, 5, 161, 0.91);
+    background: linear-gradient(45deg, rgba(86, 58, 250, 0.9) 0%, rgba(116, 15, 214, 0.9) 100%);
     position: absolute;
     bottom: 0;
     top: 0;
@@ -1449,11 +1449,10 @@ body {
   # Footer
   --------------------------------------------------------------*/
   #footer {
-    background: #010351;
+    background: linear-gradient(45deg, rgba(86, 58, 250, 0.9) 0%, rgba(116, 15, 214, 0.9) 100%);
     padding: 0 0 30px 0;
     color: #fff;
     font-size: 14px;
-    
   }
   
   #footer .footer-top {
@@ -1462,7 +1461,7 @@ body {
   
   #footer .footer-top .footer-info {
     margin-bottom: 15px;
-    background: #010246;
+    background:  rgba(87, 58, 250, 0.945);
     color: #fff;
     border-top: 4px solid #1acc8d;
     text-align: center;
@@ -1514,7 +1513,6 @@ body {
   
   #footer .footer-top .footer-links {
     margin-bottom: 30px;
-    
   }
   
   #footer .footer-top .footer-links ul {
@@ -1602,6 +1600,7 @@ body {
       margin: -20px 0 30px 0;
     }
   }
+  
   
   /*--------------------------------------------------------------
   # Search Box

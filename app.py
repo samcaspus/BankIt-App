@@ -42,6 +42,25 @@ class Customer(db.Model):
     def __repr__(self):
         return "Customer id: "+str(self.cid)
 
+class Transaction(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    cid = db.Column(db.Integer(), nullable=False)
+    amount = db.Column(db.Integer(), nullable=False)
+    source_acc_type = db.Column(db.String(1), nullable=False)
+    target_acc_type = db.Column(db.String(1), nullable=False)
+    tans_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    trans_type = db.Column(db.String(1), nullable=False)
+
+    def __init__(self, cid, amount, source_acc_type, target_acc_type, trans_type):
+        self.cid = cid
+        self.amount = amount
+        self.source_acc_type = source_acc_type
+        self.target_acc_type = target_acc_type
+        self.trans_type = trans_type
+        
+    def __repr__(self):
+        return "Transaction id: "+str(self.id)
+
 # ###########################
 # Initializing Dummy Data (Run in Python Terminal)
 # ###########################
@@ -123,7 +142,8 @@ def update():
         accid=request.form["accid"]
         cust = Customer.query.filter_by(accountId=accid).first()
         cust.accountBalance = (int)(oldb)+(int)(newb)
-        cust.message="Deposit success"
+        db.session.add(Transaction(cid=cust.cid, amount=(int)(newb), source_acc_type=cust.account_type, target_acc_type=cust.account_type, trans_type='C'))
+        cust.message="Amount Deposited Successfully."
         db.session.commit()
         return redirect("/AccountStatus")
 
@@ -135,10 +155,11 @@ def withdrawupdate():
         accid=request.form["accid"]
         cust = Customer.query.filter_by(accountId=accid).first()
         if((int)(oldb)-(int)(newb) < 0):
-            cust.message="Withdraw failed"
+            cust.message="Withdraw Failed Due to Low Balance."
         else:
             cust.accountBalance = (int)(oldb)-(int)(newb)
-            cust.message="Withdraw success"
+            db.session.add(Transaction(cid=cust.cid, amount=(int)(newb), source_acc_type=cust.account_type, target_acc_type=cust.account_type, trans_type='D'))
+            cust.message="Amount Withdrawn Successfully."
         db.session.commit()
         return redirect("/AccountStatus")
 
@@ -180,8 +201,10 @@ def transferupdate():
         else:
             scust.accountBalance = int(scust.accountBalance)-int(tran)
             tcust.accountBalance = int(tcust.accountBalance)+int(tran)
-            scust.message="Transfer success"
-            tcust.message="Money Recieved"
+            scust.message="Transfer Successful."
+            db.session.add(Transaction(cid=scust.cid, amount=(int)(tran), source_acc_type=scust.account_type, target_acc_type=tcust.account_type, trans_type='D'))
+            tcust.message="Transfer Successful, Money Recieved."
+            db.session.add(Transaction(cid=tcust.cid, amount=(int)(tran), source_acc_type=scust.account_type, target_acc_type=tcust.account_type, trans_type='C'))
             
         db.session.commit()
         return redirect("/AccountStatus")
@@ -199,18 +222,57 @@ def transferupdates():
 
             scust.message="Transfer failed because source and target accounts are same."
         if(scust is None or tcust is None):
-            scust.message="Transfer failed.Check Account IDs"
+            scust.message="Transfer failed. Check Account IDs"
         elif(int(scust.accountBalance)-int(tran) < 0 ):
             
             scust.message="Insufficient balance for transfer"
         else:
             scust.accountBalance = int(scust.accountBalance)-int(tran)
             tcust.accountBalance = int(tcust.accountBalance)+int(tran)
-            scust.message="Transfer success"
-            tcust.message="Money Recieved"
-            
+            scust.message="Transfer Successful"
+            db.session.add(Transaction(cid=scust.cid, amount=(int)(tran), source_acc_type=scust.account_type, target_acc_type=tcust.account_type, trans_type='D'))
+            tcust.message="Transfer Successful, Money Recieved."
+            db.session.add(Transaction(cid=tcust.cid, amount=(int)(tran), source_acc_type=scust.account_type, target_acc_type=tcust.account_type, trans_type='C'))
         db.session.commit()
         return redirect("/AccountStatus")
+
+@app.route("/AccountStatement", methods=["POST",'GET'])
+def AccountStatement():
+    if request.method == 'POST':
+        if request.form['option'] == 'trans':
+            n = request.form['number']
+            if (int)(n) > 0:
+                accid = request.form['accid']
+                c = db.session.query(Customer).filter(Customer.accountId == accid).count()
+                if c == 0:
+                    return render_template('account-Statement.html', error="No Account was found.")
+                else:
+                    customer = db.session.query(Customer).filter(Customer.accountId == accid).all()[0].cid
+                    transaction = db.session.query(Transaction).filter(Transaction.cid == customer).limit(n)
+                    return render_template('account-Statement.html', transaction=transaction)
+            else:
+                return render_template('account-Statement.html', error="Please Select Number of Transactions")
+        elif request.form['option'] == 'dates':
+            sd = request.form['startdate']
+            ed = request.form['enddate']
+            sd = datetime.strptime((sd + " 00:00:00"), '%Y-%m-%d %H:%M:%S')
+            ed = datetime.strptime((ed + " 00:00:00"), '%Y-%m-%d %H:%M:%S')
+            if sd > ed:
+                return render_template('account-Statement.html', error="Invalid Date was found.")
+            else:
+                accid = request.form['accid']
+                c = db.session.query(Customer).filter(Customer.accountId == accid).count()
+                if c == 0:
+                    return render_template('account-Statement.html', error="No Account was found.")
+                else:
+                    customer = db.session.query(Customer).filter(Customer.accountId == accid).all()[0].cid
+                    transaction = db.session.query(Transaction).filter(Transaction.cid == customer).filter(Transaction.tans_date >= sd).filter(Transaction.tans_date <= ed)
+                    return render_template('account-Statement.html', transaction=transaction)
+        else:
+            return render_template('account-Statement.html', error="Invalid Input was found.")
+
+    else:
+        return render_template('account-Statement.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

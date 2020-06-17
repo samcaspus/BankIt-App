@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title>Update Customer</title>
+{% endblock %}
+
+{% block style %}
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+{% endblock %}
+   
+
+{% block body %}
+<div class="container">
+    <section id="content">
+        <form method="POST" action="/updatecustomer">
+            <h1>Update Account</h1>     
+            <div>
+                <input type="text" placeholder="Customer ID" required="" id="cid" name="cid"/>
+            </div>   
+            <br>
+            <div>
+                <input type="text" placeholder="New Customer Name" required="" id="customer_name" name="customer_name" />
+            </div>  
+            <br> 
+            <div>
+                <input type="text" placeholder="New Address" required="" id="address" name="address" />
+            </div>     
+            <div>
+                <input type="text" placeholder="New Age" required="" id="age" name="age" />
+            </div> 
+            
+            <div>   
+                <input type="submit" value="Update Details"/>
+            </div>
+        </form><!-- form -->
+        
+    </section><!-- content -->
+  </div><!-- container -->
+  
+  
+  
+
+{% endblock %}

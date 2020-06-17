@@ -16,7 +16,7 @@
   <!-- ======= Hero Section ======= -->
 
     <!-- ======= Contact Section ======= -->
-    
+    <div class="container form-control"><a href="#contacts"><p style="color: blue;font-weight:bold;font-style: italic;">Transfer to different account</p></a></div>
     <section id="contact" class="contact">
       <div class="container">
 
@@ -102,7 +102,7 @@
 
 
 
-    <section id="contact" class="contact">
+    <section id="contacts" class="contact">
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
@@ -128,6 +128,7 @@
                 <p type="text" class="form-control" name="cid" id="cid" placeholder="Customer ID">{{row.cid}} </p>
                 
               <input type="hidden" value="{{row.accountId}}" name="accid" id="aid">
+              <input type="hidden" value="{{row.accountBalance}}" name="bal" id="bal">
               
               </div>
           </td>
@@ -203,7 +204,6 @@
  
 
 
-
 $('#submitt').on('click',(e)=>{e.preventDefault()
     let postData={
       'tacc' :$("input[id=tacc]").val() ,
@@ -225,8 +225,15 @@ $('#submitt').on('click',(e)=>{e.preventDefault()
               console.log("Error is: " + err.statusText);
             }
           });
-   alert("Check Message in Account Status for Status of Transfer")
-   window.location.replace("/AccountStatus")
+   if($('#aid').val()  === $('#tacc').val())
+   {
+    alert("Source and Target accounts cannot be same.");
+   }
+   else if($('#bal').val() < $('#tran').val())
+   {
+    alert("Insufficient balance.");
+   }
+   window.location.replace("/AccountStatus");
            })
  
 </script>

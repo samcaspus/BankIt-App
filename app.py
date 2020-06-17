@@ -124,6 +124,7 @@ def update():
         cust = Customer.query.filter_by(accountId=accid).first()
         cust.accountBalance = (int)(oldb)+(int)(newb)
         cust.message="Deposit success"
+        cust.last_updated=datetime.utcnow()
         db.session.commit()
         return redirect("/AccountStatus")
 
@@ -139,6 +140,7 @@ def withdrawupdate():
         else:
             cust.accountBalance = (int)(oldb)-(int)(newb)
             cust.message="Withdraw success"
+        cust.last_updated=datetime.utcnow()
         db.session.commit()
         return redirect("/AccountStatus")
 
@@ -172,16 +174,20 @@ def transferupdate():
         
         if(stype==ttype):
 
-            scust.message="Transfer failed"
+            scust.message="Transfer failed.Source and Account Type is same."
+            scust.last_updated=datetime.utcnow()
 
         elif(int(scust.accountBalance)-int(tran) < 0 ):
             
             scust.message="Insufficient balance for transfer"
+            scust.last_updated=datetime.utcnow()
         else:
             scust.accountBalance = int(scust.accountBalance)-int(tran)
             tcust.accountBalance = int(tcust.accountBalance)+int(tran)
             scust.message="Transfer success"
             tcust.message="Money Recieved"
+            scust.last_updated=datetime.utcnow()
+            tcust.last_updated=datetime.utcnow()
             
         db.session.commit()
         return redirect("/AccountStatus")
@@ -194,20 +200,27 @@ def transferupdates():
         accid=request.form["accid"]
         scust = db.session.query(Customer).filter(Customer.accountId == accid).first()
         tcust = db.session.query(Customer).filter(Customer.accountId == tacc).first()
-        
-        if(accid == tacc):
 
-            scust.message="Transfer failed because source and target accounts are same."
-        if(scust is None or tcust is None):
+        if(int(accid) == int(tacc)):
+            scust.message="Transfer failed.Source and Target account cannot be same."
+            scust.last_updated=datetime.utcnow()
+
+        elif(scust is None or tcust is None):
             scust.message="Transfer failed.Check Account IDs"
+            scust.last_updated=datetime.utcnow()
+
         elif(int(scust.accountBalance)-int(tran) < 0 ):
             
             scust.message="Insufficient balance for transfer"
+            scust.last_updated=datetime.utcnow()
         else:
+            scust.last_updated=datetime.utcnow()
+            tcust.last_updated=datetime.utcnow()
             scust.accountBalance = int(scust.accountBalance)-int(tran)
             tcust.accountBalance = int(tcust.accountBalance)+int(tran)
             scust.message="Transfer success"
             tcust.message="Money Recieved"
+            
             
         db.session.commit()
         return redirect("/AccountStatus")

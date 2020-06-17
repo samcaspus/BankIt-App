@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<title>Account Statement</title>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all">
+<script>
+    
+    window.onload = function() {
+    document.getElementById('transactionNumber').style.display = 'none';
+    document.getElementById('datepicker').style.display = 'none';
+}
+
+function yesnoCheck() {
+    if (document.getElementById('transactions').checked) {
+        document.getElementById('transactionNumber').style.display = 'block';
+        document.getElementById('datepicker').style.display = 'none';
+    } 
+    else if(document.getElementById('dates').checked) {
+        document.getElementById('datepicker').style.display = 'block';
+        document.getElementById('transactionNumber').style.display = 'none';
+   }
+}
+</script>
+{% endblock %}
+
+{% block style %}
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block body %}
+<div class="container">
+    <hr>
+    <h1 class="display-4" style="text-align: center;">Account Statement</h1>
+    <hr>
+    {% if error %}
+    <div class="alert alert-danger" role="alert" style="text-align: center; font-family: 'Poppins', sans-serif;">
+            {{ error }}
+        </div>  
+    {% endif %}  
+    <br>
+    <div class="form">
+    <form action="/AccountStatement" method="POST">
+        <div class="form-row">
+          <div class="form-group form-inline">
+            <label for="accid" style="padding-right: 10px;">Account ID: </label>
+            <input type="text" class="form-control" id="accid" name="accid" placeholder="Account ID" required>
+          </div>
+        </div>
+        <fieldset class="form-group">
+        <div class="custom-control custom-radio">
+            <input type="radio" id="transactions" name="option" class="custom-control-input" value="trans" onclick="javascript:yesnoCheck();">
+            <label class="custom-control-label" for="transactions">Last N Transactions</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="dates" name="option" class="custom-control-input" value="dates" onclick="javascript:yesnoCheck();">
+            <label class="custom-control-label" for="dates">Start-End Dates</label>
+          </div>
+          <hr>
+          <div class="form-row" id="transactionNumber">
+            <div class="form-group form-inline">
+              <label for="number" style="padding-right: 10px;">Number of Transactions: </label>
+              
+              <select class="custom-select" name="number" id="inlineFormCustomSelectPref">
+                <option selected>Choose...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>            
+            </div>
+          </div>
+          <div class="form-row" id="datepicker">
+            <div class="form-group form-inline">
+                <input type='date' class="form-control" name="startdate" id='from' placeholder='Start Date' style='width: 300px; margin-right: 10px;' >
+
+                <input type='date' class="form-control" name="enddate" id='to' placeholder='End Date' style='width: 300px;' >
+            </div>
+          </div>
+        <button type="submit" id="submit">Submit</button>
+      </form>
+    </div>
+    <hr>
+        <div>
+            {% if transaction %}
+                {% if transaction[0] == null %}
+                <p style="text-align: center; font-family: 'Poppins', sans-serif;">Sorry, No history of transaction was found</p>
+                {% else %}
+                        <div id="tableDiv">
+                            <table class="table table-hover table-borderless table-striped" id="table">
+                                <thead>
+                                    <tr >
+                                        <th scope="col">Transaction ID</th>
+                                        <th scope="col">Transaction Date</th>
+                                        <th scope="col">Transaction Type</th>
+                                        <th scope="col">Transaction Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in transaction %}
+                                        {% if row.trans_type == 'C' %}
+                                            <tr class="table-success">
+                                        {% else %}
+                                        <tr class="table-danger">
+                                        {% endif %}
+                                        <th scope="row">{{ row.id }}</th>
+                                        <td>{{ row.tans_date }}</td>
+                                        {% if row.trans_type == 'C' %}
+                                            <td>Credit</td>
+                                        {% else %}
+                                        <td>Debit</td>
+                                        {% endif %}
+                                        <td>{{ row.amount }}</td>
+                                    </tr>                                   
+                                    {% endfor %}
+                                </tbody>    
+                            </table>
+                        </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+<div>
+
+</div>
+
+{% endblock %}

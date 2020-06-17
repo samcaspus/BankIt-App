@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from cid_generator import randN
+import json
+from sqlalchemy import and_
 
 # ###########################
 # Database Configuration
@@ -59,7 +61,27 @@ class CustomerDetails(db.Model):
         self.city = city
 
     def __repr__(self):
-        return "Customer id: "+str(self.cid)
+        return "Customer Detail id: "+str(self.cid)
+
+
+class Transaction(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    cid = db.Column(db.Integer(), nullable=False)
+    amount = db.Column(db.Integer(), nullable=False)
+    source_acc_type = db.Column(db.String(1), nullable=False)
+    target_acc_type = db.Column(db.String(1), nullable=False)
+    tans_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    trans_type = db.Column(db.String(1), nullable=False)
+
+    def __init__(self, cid, amount, source_acc_type, target_acc_type, trans_type):
+        self.cid = cid
+        self.amount = amount
+        self.source_acc_type = source_acc_type
+        self.target_acc_type = target_acc_type
+        self.trans_type = trans_type
+        
+    def __repr__(self):
+        return "Transaction id: "+str(self.id)
 
 # ###########################
 # Initializing Dummy Data (Run in Python Terminal)
@@ -81,6 +103,7 @@ class CustomerDetails(db.Model):
 # ###########################
 # Routing
 # ###########################
+
 
 @app.route('/')
 def home():
@@ -114,6 +137,7 @@ def CustomerSearch():
 @app.route('/AccountSearch', methods=['GET', 'POST'])
 def AccountSearch():
     if request.method == 'POST':
+       
         if 'accid' in request.form:
             accid = request.form['accid']
             results = db.session.query(Customer).filter(Customer.accountId == accid)
@@ -124,6 +148,155 @@ def AccountSearch():
             return render_template('account-Search.html', result=results)
     else:   
         return render_template('account-Search.html')
+
+
+@app.route('/Deposit', methods=['GET', 'POST'])
+def deposit():
+    if request.method == 'POST':
+        accid = request.form['accid']
+        results = db.session.query(Customer).filter(Customer.accountId == accid)
+        return render_template('Deposit.html',result=results)
+
+@app.route("/update", methods=["POST",'GET'])
+def update():
+    if request.method == 'POST':
+        newb = request.form["dep"]
+        oldb = request.form["oldbalance"]
+        accid=request.form["accid"]
+        cust = Customer.query.filter_by(accountId=accid).first()
+        cust.accountBalance = (int)(oldb)+(int)(newb)
+        db.session.add(Transaction(cid=cust.cid, amount=(int)(newb), source_acc_type=cust.account_type, target_acc_type=cust.account_type, trans_type='C'))
+        cust.message="Amount Deposited Successfully."
+        db.session.commit()
+        return redirect("/AccountStatus")
+
+@app.route("/withdrawupdate", methods=["POST",'GET'])
+def withdrawupdate():
+    if request.method == 'POST':
+        newb = request.form["dep"]
+        oldb = request.form["oldbalance"]
+        accid=request.form["accid"]
+        cust = Customer.query.filter_by(accountId=accid).first()
+        if((int)(oldb)-(int)(newb) < 0):
+            cust.message="Withdraw Failed Due to Low Balance."
+        else:
+            cust.accountBalance = (int)(oldb)-(int)(newb)
+            db.session.add(Transaction(cid=cust.cid, amount=(int)(newb), source_acc_type=cust.account_type, target_acc_type=cust.account_type, trans_type='D'))
+            cust.message="Amount Withdrawn Successfully."
+        db.session.commit()
+        return redirect("/AccountStatus")
+
+
+
+
+@app.route('/Withdraw',methods=["POST",'GET'])
+def withdraw():
+    if request.method == 'POST':
+        accid = request.form['accid']
+        results = db.session.query(Customer).filter(Customer.accountId == accid)
+        return render_template('withdraw.html',result=results)
+
+
+@app.route('/Transfer',methods=["POST",'GET'])
+def transfer():
+    if request.method == 'POST':
+        accid = request.form['accid']
+        results = db.session.query(Customer).filter(Customer.accountId == accid)
+        return render_template('transfer.html',result=results)
+
+@app.route("/transferupdate", methods=["POST",'GET'])
+def transferupdate():
+    if request.method == 'POST':
+        tran = request.form["dep"]
+        stype = request.form["stype"]
+        ttype=request.form["ttype"]
+        accid=request.form["accid"]
+        scust = db.session.query(Customer).filter(and_(Customer.cid == accid,Customer.account_type==stype[0])).first()
+        tcust = db.session.query(Customer).filter(and_(Customer.cid==accid,Customer.account_type==ttype[0])).first()
+        
+        if(stype==ttype):
+
+            scust.message="Transfer failed"
+
+        elif(int(scust.accountBalance)-int(tran) < 0 ):
+            
+            scust.message="Insufficient balance for transfer"
+        else:
+            scust.accountBalance = int(scust.accountBalance)-int(tran)
+            tcust.accountBalance = int(tcust.accountBalance)+int(tran)
+            scust.message="Transfer Successful."
+            db.session.add(Transaction(cid=scust.cid, amount=(int)(tran), source_acc_type=scust.account_type, target_acc_type=tcust.account_type, trans_type='D'))
+            tcust.message="Transfer Successful, Money Recieved."
+            db.session.add(Transaction(cid=tcust.cid, amount=(int)(tran), source_acc_type=scust.account_type, target_acc_type=tcust.account_type, trans_type='C'))
+            
+        db.session.commit()
+        return redirect("/AccountStatus")
+
+@app.route("/transferupdates", methods=["POST",'GET'])
+def transferupdates():
+    if request.method == 'POST':
+        tran = request.form["tran"]
+        tacc=request.form["tacc"]
+        accid=request.form["accid"]
+        scust = db.session.query(Customer).filter(Customer.accountId == accid).first()
+        tcust = db.session.query(Customer).filter(Customer.accountId == tacc).first()
+        
+        if(accid == tacc):
+
+            scust.message="Transfer failed because source and target accounts are same."
+        if(scust is None or tcust is None):
+            scust.message="Transfer failed. Check Account IDs"
+        elif(int(scust.accountBalance)-int(tran) < 0 ):
+            
+            scust.message="Insufficient balance for transfer"
+        else:
+            scust.accountBalance = int(scust.accountBalance)-int(tran)
+            tcust.accountBalance = int(tcust.accountBalance)+int(tran)
+            scust.message="Transfer Successful"
+            db.session.add(Transaction(cid=scust.cid, amount=(int)(tran), source_acc_type=scust.account_type, target_acc_type=tcust.account_type, trans_type='D'))
+            tcust.message="Transfer Successful, Money Recieved."
+            db.session.add(Transaction(cid=tcust.cid, amount=(int)(tran), source_acc_type=scust.account_type, target_acc_type=tcust.account_type, trans_type='C'))
+        db.session.commit()
+        return redirect("/AccountStatus")
+
+@app.route("/AccountStatement", methods=["POST",'GET'])
+def AccountStatement():
+    if request.method == 'POST':
+        if request.form['option'] == 'trans':
+            n = request.form['number']
+            if (int)(n) > 0:
+                accid = request.form['accid']
+                c = db.session.query(Customer).filter(Customer.accountId == accid).count()
+                if c == 0:
+                    return render_template('account-Statement.html', error="No Account was found.")
+                else:
+                    customer = db.session.query(Customer).filter(Customer.accountId == accid).all()[0].cid
+                    transaction = db.session.query(Transaction).filter(Transaction.cid == customer).limit(n)
+                    return render_template('account-Statement.html', transaction=transaction)
+            else:
+                return render_template('account-Statement.html', error="Please Select Number of Transactions")
+        elif request.form['option'] == 'dates':
+            sd = request.form['startdate']
+            ed = request.form['enddate']
+            sd = datetime.strptime((sd + " 00:00:00"), '%Y-%m-%d %H:%M:%S')
+            ed = datetime.strptime((ed + " 00:00:00"), '%Y-%m-%d %H:%M:%S')
+            if sd > ed:
+                return render_template('account-Statement.html', error="Invalid Date was found.")
+            else:
+                accid = request.form['accid']
+                c = db.session.query(Customer).filter(Customer.accountId == accid).count()
+                if c == 0:
+                    return render_template('account-Statement.html', error="No Account was found.")
+                else:
+                    customer = db.session.query(Customer).filter(Customer.accountId == accid).all()[0].cid
+                    transaction = db.session.query(Transaction).filter(Transaction.cid == customer).filter(Transaction.tans_date >= sd).filter(Transaction.tans_date <= ed)
+                    return render_template('account-Statement.html', transaction=transaction)
+        else:
+            return render_template('account-Statement.html', error="Invalid Input was found.")
+
+    else:
+        return render_template('account-Statement.html')
+
 
 @app.route('/createcustomer', methods=['GET', 'POST'])
 def Createcustomer():

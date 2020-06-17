@@ -147,7 +147,7 @@ def Createcustomer():
         else:
             return render_template('create-customer.html') 
     else:
-        return render_template('create-customer.html') 
+        return render_template('error.html') 
 
 
 @app.route('/addaccount', methods =['GET','POST'])
@@ -159,18 +159,20 @@ def Addaccount():
             accountBalance = request.form['accountBalance']
 
             results = db.session.query(CustomerDetails).filter(CustomerDetails.cid==cid)
-            for row in results:
-                ssnid = row.ssnid
-            accountId = int(randN())
-            db.session.add(Customer(cid=cid, ssnid=ssnid, accountId=accountId, accountBalance=accountBalance, account_type=account_type, status='Pending Approval', message='Just Created'))
-            db.session.commit()
-            return render_template('create-account.html')
+            x = [print(i) for i in results]
+            if len(x) == 0:
+                return render_template('error.html')
+            else:
+                for row in results:
+                    ssnid = row.ssnid
+                accountId = int(randN())
+                db.session.add(Customer(cid=cid, ssnid=ssnid, accountId=accountId, accountBalance=accountBalance, account_type=account_type, status='Pending Approval', message='Just Created'))
+                db.session.commit()
+                return render_template('create-account.html')
         else:
             return render_template('create-account.html')
-
-        
     else:
-        return render_template('create-account.html')
+        return render_template('create-account.html') 
 
 @app.route('/updatecustomer', methods =['GET','POST'])
 def UpdateCustomer(): 
@@ -182,13 +184,17 @@ def UpdateCustomer():
             age = int(request.form['age'])
 
             results = db.session.query(CustomerDetails).filter(CustomerDetails.cid == cid)
-            print(results[0])
-            for row in results:
-                row.customer_name = customer_name
-                row.address = address
-                row.age = age
-            db.session.commit()
-            return render_template('update-customer.html')
+            x = [print(i) for i in results]
+            
+            if len(x) == 0:
+                return render_template('error.html')
+            else:
+                for row in results:
+                    row.customer_name = customer_name
+                    row.address = address
+                    row.age = age
+                    db.session.commit()
+                return render_template('update-customer.html')
         else:
             return render_template('update-customer.html')
     else:
@@ -200,14 +206,37 @@ def DeleteCustomer():
     if request.method == 'POST':
         if 'cid' in request.form:
             cid = int(request.form['cid'])
-            db.session.query(Customer).filter(Customer.cid == cid).delete()
-            db.session.query(CustomerDetails).filter(CustomerDetails.cid == cid).delete()
-            db.session.commit()
-            return render_template('delete-customer.html')
+            results = db.session.query(CustomerDetails).filter(CustomerDetails.cid == cid)
+            x = [print(i) for i in results]
+            if len(x) == 0:
+                return render_template('error.html')
+            else:
+                db.session.query(Customer).filter(Customer.cid == cid).delete()
+                db.session.query(CustomerDetails).filter(CustomerDetails.cid == cid).delete()
+                db.session.commit()
+                return render_template('delete-customer.html')
         else:
             return render_template('delete-customer.html')
     else:
         return render_template('delete-customer.html')
+
+@app.route('/deleteaccount', methods =['GET','POST'])
+def DeleteAccount(): 
+    if request.method == 'POST':
+        if 'accountId' in request.form:
+            accountId = int(request.form['accountId'])
+            results = db.session.query(Customer).filter(Customer.accountId == accountId)
+            x = [print(i) for i in results]
+            if len(x) == 0:
+                return render_template('error.html')
+            else:
+                db.session.query(Customer).filter(Customer.accountId == accountId).delete()
+                db.session.commit()
+                return render_template('delete-account.html')
+        else:
+            return render_template('delete-account.html')
+    else:
+        return render_template('delete-account.html')
 
 
 if __name__ == '__main__':
